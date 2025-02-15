@@ -1,0 +1,180 @@
+{
+  "version": "0.1.0",
+  "name": "meme_stake",
+  "constants": [{ "name": "SEED", "type": "string", "value": "\"anchor\"" }],
+  "instructions": [
+    {
+      "name": "configure",
+      "accounts": [
+        { "name": "config", "isMut": true, "isSigner": false },
+        { "name": "payer", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "rent", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "arg", "type": { "defined": "ConfigureArg" } }]
+    },
+    {
+      "name": "setToken",
+      "accounts": [
+        { "name": "config", "isMut": false, "isSigner": false },
+        { "name": "tokenConfig", "isMut": true, "isSigner": false },
+        { "name": "tokenMint", "isMut": true, "isSigner": false },
+        { "name": "payer", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "rent", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "arg", "type": { "defined": "SetTokenArg" } }]
+    },
+    {
+      "name": "stake",
+      "accounts": [
+        { "name": "tokenConfig", "isMut": true, "isSigner": false },
+        { "name": "tokenMint", "isMut": true, "isSigner": false },
+        { "name": "userStake", "isMut": true, "isSigner": false },
+        { "name": "vault", "isMut": false, "isSigner": false },
+        { "name": "vaultAta", "isMut": true, "isSigner": false },
+        { "name": "userAta", "isMut": true, "isSigner": false },
+        { "name": "payer", "isMut": true, "isSigner": true },
+        { "name": "associatedTokenProgram", "isMut": false, "isSigner": false },
+        { "name": "tokenProgram", "isMut": false, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "rent", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "arg", "type": { "defined": "StakeArg" } }]
+    },
+    {
+      "name": "unstake",
+      "accounts": [
+        { "name": "tokenConfig", "isMut": true, "isSigner": false },
+        { "name": "tokenMint", "isMut": true, "isSigner": false },
+        { "name": "userStake", "isMut": true, "isSigner": false },
+        { "name": "vault", "isMut": false, "isSigner": false },
+        { "name": "vaultAta", "isMut": true, "isSigner": false },
+        { "name": "userAta", "isMut": true, "isSigner": false },
+        { "name": "payer", "isMut": true, "isSigner": true },
+        { "name": "associatedTokenProgram", "isMut": false, "isSigner": false },
+        { "name": "tokenProgram", "isMut": false, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "rent", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "arg", "type": { "defined": "UnstakeArg" } }]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "GlobalConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "isEnable", "type": "bool" },
+          { "name": "authority", "type": "publicKey" }
+        ]
+      }
+    },
+    {
+      "name": "TokenConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "isEnable", "type": "bool" },
+          { "name": "minAmount", "type": "u64" },
+          { "name": "lockTimestamp", "type": "i64" },
+          { "name": "stakedAmount", "type": "u64" }
+        ]
+      }
+    },
+    {
+      "name": "UserStake",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "uid", "type": "u64" },
+          { "name": "amount", "type": "u64" },
+          { "name": "timestamp", "type": "i64" }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "ConfigureArg",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "isEnable", "type": { "option": "bool" } },
+          { "name": "authority", "type": { "option": "publicKey" } }
+        ]
+      }
+    },
+    {
+      "name": "SetTokenArg",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "isEnable", "type": { "option": "bool" } },
+          { "name": "minAmount", "type": { "option": "u64" } },
+          { "name": "lockTimestamp", "type": { "option": "i64" } }
+        ]
+      }
+    },
+    {
+      "name": "StakeArg",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "amount", "type": "u64" },
+          { "name": "uid", "type": "u64" }
+        ]
+      }
+    },
+    {
+      "name": "UnstakeArg",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "amount", "type": "u64" },
+          { "name": "uid", "type": "u64" }
+        ]
+      }
+    },
+    {
+      "name": "CalError",
+      "type": { "kind": "enum", "variants": [{ "name": "OverflowError" }] }
+    }
+  ],
+  "events": [
+    {
+      "name": "SetTokenEvt",
+      "fields": [
+        { "name": "tokenMint", "type": "publicKey", "index": false },
+        { "name": "isEnable", "type": "bool", "index": false },
+        { "name": "minAmount", "type": "u64", "index": false },
+        { "name": "lockTimestamp", "type": "i64", "index": false }
+      ]
+    },
+    {
+      "name": "StakeEvt",
+      "fields": [
+        { "name": "tokenMint", "type": "publicKey", "index": false },
+        { "name": "user", "type": "publicKey", "index": false },
+        { "name": "amount", "type": "u64", "index": false },
+        { "name": "uid", "type": "u64", "index": false },
+        { "name": "unlockTimestamp", "type": "i64", "index": false }
+      ]
+    },
+    {
+      "name": "UnstakeEvt",
+      "fields": [
+        { "name": "tokenMint", "type": "publicKey", "index": false },
+        { "name": "user", "type": "publicKey", "index": false },
+        { "name": "amount", "type": "u64", "index": false },
+        { "name": "uid", "type": "u64", "index": false }
+      ]
+    }
+  ],
+  "errors": [
+    { "code": 6000, "name": "InvalidArgument", "msg": "Invalid argument" },
+    { "code": 6001, "name": "InvalidAuthrioty", "msg": "Invalid authrioty" },
+    { "code": 6002, "name": "InvalidDuration", "msg": "Invalid duration" }
+  ]
+}

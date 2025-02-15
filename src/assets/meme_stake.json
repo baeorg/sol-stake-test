@@ -1,0 +1,605 @@
+{
+  "version": "0.1.0",
+  "name": "meme_stake",
+  "constants": [
+    {
+      "name": "SEED",
+      "type": "string",
+      "value": "\"anchor\""
+    }
+  ],
+  "instructions": [
+    {
+      "name": "configure",
+      "accounts": [
+        {
+          "name": "config",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Account to store configure"
+          ]
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true,
+          "docs": [
+            "The payer."
+          ]
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "The [System] program."
+          ]
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "The [Rent] program."
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "arg",
+          "type": {
+            "defined": "ConfigureArg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "setToken",
+      "accounts": [
+        {
+          "name": "config",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "Account to store GlobalConfig"
+          ]
+        },
+        {
+          "name": "tokenConfig",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Account to store TokenConfig"
+          ]
+        },
+        {
+          "name": "tokenMint",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Token mint"
+          ]
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true,
+          "docs": [
+            "The payer."
+          ]
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "The [System] program."
+          ]
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "The [Rent] program."
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "arg",
+          "type": {
+            "defined": "SetTokenArg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stake",
+      "accounts": [
+        {
+          "name": "tokenConfig",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Account to store TokenConfig"
+          ]
+        },
+        {
+          "name": "tokenMint",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Token mint"
+          ]
+        },
+        {
+          "name": "userStake",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Account to store UserStake"
+          ]
+        },
+        {
+          "name": "vault",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "vaultAta",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Associated account of vault"
+          ]
+        },
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Associated account of user"
+          ]
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true,
+          "docs": [
+            "The payer."
+          ]
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "Associated [Token] program."
+          ]
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "SPL [Token] program."
+          ]
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "The [System] program."
+          ]
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "The [Rent] program."
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "arg",
+          "type": {
+            "defined": "StakeArg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "unstake",
+      "accounts": [
+        {
+          "name": "tokenConfig",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Account to store TokenConfig"
+          ]
+        },
+        {
+          "name": "tokenMint",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Token mint"
+          ]
+        },
+        {
+          "name": "userStake",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Account to store UserStake"
+          ]
+        },
+        {
+          "name": "vault",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "vaultAta",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Associated account of vault"
+          ]
+        },
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Associated account of user"
+          ]
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true,
+          "docs": [
+            "The payer."
+          ]
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "Associated [Token] program."
+          ]
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "SPL [Token] program."
+          ]
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "The [System] program."
+          ]
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "The [Rent] program."
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "arg",
+          "type": {
+            "defined": "UnstakeArg"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "GlobalConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "isEnable",
+            "docs": [
+              "Is enable to run program"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "authority",
+            "docs": [
+              "The authority to set program"
+            ],
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "isEnable",
+            "docs": [
+              "Is enable to run program"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "minAmount",
+            "docs": [
+              "Min amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "lockTimestamp",
+            "docs": [
+              "Lock timestamp"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "stakedAmount",
+            "docs": [
+              "Sum amount of stake"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserStake",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "docs": [
+              "Amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "docs": [
+              "Timestamp"
+            ],
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "ConfigureArg",
+      "docs": [
+        "Configure arguments"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "isEnable",
+            "docs": [
+              "Is enable to run program"
+            ],
+            "type": {
+              "option": "bool"
+            }
+          },
+          {
+            "name": "authority",
+            "docs": [
+              "The authority to set program"
+            ],
+            "type": {
+              "option": "publicKey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "SetTokenArg",
+      "docs": [
+        "SetToken arguments"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "isEnable",
+            "docs": [
+              "Is enable to support token"
+            ],
+            "type": {
+              "option": "bool"
+            }
+          },
+          {
+            "name": "minAmount",
+            "docs": [
+              "Min amount"
+            ],
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "lockTimestamp",
+            "docs": [
+              "Lock timestamp"
+            ],
+            "type": {
+              "option": "i64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "StakeArg",
+      "docs": [
+        "Stake arguments"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "docs": [
+              "Amount"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UnstakeArg",
+      "docs": [
+        "Stake arguments"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "docs": [
+              "Amount"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CalError",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "OverflowError"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "SetTokenEvt",
+      "fields": [
+        {
+          "name": "tokenMint",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "isEnable",
+          "type": "bool",
+          "index": false
+        },
+        {
+          "name": "minAmount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "lockTimestamp",
+          "type": "i64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "StakeEvt",
+      "fields": [
+        {
+          "name": "tokenMint",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "user",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "unlockTimestamp",
+          "type": "i64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "UnstakeEvt",
+      "fields": [
+        {
+          "name": "tokenMint",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "user",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidArgument",
+      "msg": "Invalid argument"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidAuthrioty",
+      "msg": "Invalid authrioty"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidDuration",
+      "msg": "Invalid duration"
+    }
+  ],
+  "metadata": {
+    "address": "8gEHTuuzFYxJaCzsCvJGrcGbH46pqhBzT9FcJRLcfdNZ"
+  }
+}
